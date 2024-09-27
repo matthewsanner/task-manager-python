@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+</head>
+
+<body>
+  <div>
+    <h1>Task Manager</h1>
+    <form id="taskForm">
+      <input type="text" id="title" placeholder="Task title" required>
+      <input type="text" id="description" placeholder="Task description">
+      <input type="date" id="due_date" required>
+      <select id="priority" required>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Tasks</h2>
+    <!-- Dropdown to sort tasks by Priority or Due Date -->
+    <label for="sortOptions">Sort by:</label>
+    <select id="sortOptions">
+      <option value="priority">Priority</option>
+      <option value="due_date">Due Date</option>
+    </select>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+
+</html>

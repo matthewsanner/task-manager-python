@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const taskList = document.getElementById("taskList");
   const taskForm = document.getElementById("taskForm");
   const sortOptions = document.getElementById("sortOptions");
+  const searchBox = document.getElementById("searchBox");
 
   // Fetch and display all tasks on load
   loadTasks();
@@ -22,6 +23,15 @@ document.addEventListener("DOMContentLoaded", function () {
         displayTasks(data);
       })
       .catch((error) => console.error("Error loading sorted tasks:", error));
+  }
+
+  function loadFoundTasks(query) {
+    fetch(`/api/tasks/search?query=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+        displayTasks(data);
+      })
+      .catch((error) => console.error("Error loading found tasks:", error));
   }
 
   function displayTasks(tasks) {
@@ -72,6 +82,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  searchBox.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const query = document.getElementById("query").value;
+
+    if (query) {
+      loadFoundTasks(query);
+    } else {
+      loadTasks();
+    }
+  });
+
   // Event delegation for task actions
   taskList.addEventListener("click", function (event) {
     if (event.target.classList.contains("complete-btn")) {
@@ -110,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return response.json();
       })
       .then(() => {
-        loadTasks(); // Ensure loadTasks is called here
+        loadTasks();
       })
       .catch((error) => console.error("Error deleting task:", error));
   }
